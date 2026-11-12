@@ -48,7 +48,17 @@ The owner is a solo, non-technical founder building with AI tools.
 - `types/` shared TypeScript types matching the database
 - `constants/` badges and organizer packages
 
+Folder rules:
+- Use this classic `screens/` + `navigation/` layout. Do not switch to Expo Router (the planned layout in `docs/context/feeders/04-project-structure.md` is out of date).
+- Screens only show things and call hooks. Database calls go in `hooks/` or `lib/`, never inside a screen or component.
+- Only `lib/supabase.ts` creates the Supabase client. Everything else imports it.
+- Shared types live in `types/` and must match the database columns.
+- Colors and fixed values live in `constants/`, not typed inline.
+- Edge Functions live in `supabase/functions/`, and database changes in `supabase/migrations/`, both outside `src/`.
+
 ## Database
+Schema lives in `docs/context/feeders/wheeln_migration.sql` (table list and notes in `docs/context/feeders/03-database-schema.md`). Row Level Security (RLS, the rules for who can read or write each row) is ON for every table. Never turn it off to make something work.
+
 Tables: users, locations, posts, likes, comments, friends, badge_definitions, user_badges, events, event_checkins, organizer_orders.
 - Locations are submitted with `admin_approved = false` and must be approved before they appear.
 - `user_badges` is writable only by the service role. Award badges from a Supabase Edge Function or database trigger, never directly from the app.
@@ -82,7 +92,8 @@ Read the relevant feeder before starting a feature. A separate earlier save with
 - If Supabase email confirmation is on, sign-in fails until the email is confirmed. Turn it off during development.
 
 ## Current status
-- Done: Supabase project and database migration; project scaffold; auth screens and navigation written
+- Done: Supabase project and database migration; project scaffold; auth screens and navigation written; git set up and first commit pushed to https://github.com/Dhouck01/Wheeln (branch main)
 - Not yet confirmed: sign up and sign in working end to end
 - Next: confirm auth, commit, then build the feed and check-in system
+- Missing: no `.env.example` yet (add one with placeholder values only)
 (Update this section at the end of every session.)
