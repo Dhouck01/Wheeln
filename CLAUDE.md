@@ -99,7 +99,10 @@ Read the relevant feeder before starting a feature. A separate earlier save with
 
 ## Current status
 - Done: Supabase project and database migration; project scaffold; git set up (GitHub: https://github.com/Dhouck01/Wheeln, branch main); project upgraded to Expo SDK 58; auth confirmed on a phone (sign up creates the `users` row, sign in, wrong-password error, session survives closing the app, Sign Out on the Profile tab)
-- Next: build the feed and check-in system (build order step 2)
+- Done (build order step 2, slice 1): Feed screen confirmed on a phone: Friends/Community toggle, 20-per-page scrolling, pull to refresh, likes, comments. Lock-down migration `supabase/migrations/20261112000000_lock_down_posts_and_comments.sql` applied and tested (app users can only edit a post's message). 18 starter locations loaded from `supabase/seed/locations_seed.sql`; `[TEST]` posts from `supabase/seed/test_posts.sql` are placeholder data (delete with the cleanup line at the bottom of that file)
+- Next: Check-in (slice 2): CheckInScreen, location search, photo upload, post. Needs a public Supabase Storage bucket named `post-photos` plus access rules (owner action first)
+- Open: the `users` update rule lets a signed-in user edit their own `total_checkins`, `badge_count` and `subscription_status`. Needs a lock-down like the one on posts. Also expect soft-delete of a post from the app to be blocked by the current posts rules; check when a delete button is added
+- Not built yet: tapping a location name (location detail screen is build order step 4); Friends screen, so the Friends tab only shows your own posts
 - Missing: app icon, splash image and adaptive icon files in `assets/` do not exist yet (needed before store builds); `app.json` still has the old `splash` setting, which SDK 58 replaces with the expo-splash-screen plugin
-- Placeholders: Feed, Check In and Rankings tabs are placeholder screens; Profile only shows email and Sign Out
+- Placeholders: Check In and Rankings tabs are placeholder screens; Profile only shows email and Sign Out
 (Update this section at the end of every session.)
