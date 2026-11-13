@@ -100,6 +100,6 @@ Read the relevant feeder before starting a feature. A separate earlier save with
 ## Current status
 - Done: Supabase project and database migration; project scaffold; git set up (GitHub: https://github.com/Dhouck01/Wheeln, branch main); project upgraded to Expo SDK 58; auth confirmed on a phone (sign up creates the `users` row, sign in, wrong-password error, session survives closing the app, Sign Out on the Profile tab)
 - Next: build the feed and check-in system (build order step 2)
-- Missing: no `.env.example` yet (add one with placeholder values only); app icon, splash image and adaptive icon files in `assets/` do not exist yet (needed before store builds); `app.json` still has the old `splash` setting, which SDK 58 replaces with the expo-splash-screen plugin
+- Missing: app icon, splash image and adaptive icon files in `assets/` do not exist yet (needed before store builds); `app.json` still has the old `splash` setting, which SDK 58 replaces with the expo-splash-screen plugin
 - Placeholders: Feed, Check In and Rankings tabs are placeholder screens; Profile only shows email and Sign Out
 (Update this section at the end of every session.)
