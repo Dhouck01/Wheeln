@@ -1,6 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View, Text, StyleSheet } from 'react-native';
+import { ProfileScreen } from '../screens/ProfileScreen';
 
 // Placeholder screens — replace these with real screen components as you build them
 function FeedScreen() {
@@ -11,9 +12,6 @@ function CheckInScreen() {
 }
 function RankingsScreen() {
   return <View style={s.screen}><Text style={s.text}>Rankings</Text></View>;
-}
-function ProfileScreen() {
-  return <View style={s.screen}><Text style={s.text}>Profile</Text></View>;
 }
 
 const s = StyleSheet.create({

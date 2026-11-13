@@ -20,37 +20,30 @@ export function useAuth() {
     return () => subscription.unsubscribe();
   }, []);
 
+  // signIn and signUp do not touch the shared isLoading flag. That flag means
+  // "checking for a saved session at app start" and swaps the whole screen for a
+  // spinner, which would wipe the form and any error message.
   async function signIn(email: string, password: string) {
-    setLoading(true);
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) throw error;
-      setSession(data.session);
-      setUser(data.user);
-    } finally {
-      setLoading(false);
-    }
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) throw error;
+    setSession(data.session);
+    setUser(data.user);
   }
 
   async function signUp(email: string, password: string, username: string) {
-    setLoading(true);
-    try {
-      const { data, error } = await supabase.auth.signUp({ email, password });
-      if (error) throw error;
+    const { data, error } = await supabase.auth.signUp({ email, password });
+    if (error) throw error;
 
-      if (data.user) {
-        const { error: insertError } = await supabase.from('users').insert({
-          id: data.user.id,
-          email,
-          username,
-          created_at: new Date().toISOString(),
-        });
-        if (insertError) throw insertError;
-        setSession(data.session);
-        setUser(data.user);
-      }
-    } finally {
-      setLoading(false);
+    if (data.user) {
+      const { error: insertError } = await supabase.from('users').insert({
+        auth_id: data.user.id,
+        email,
+        username,
+        display_name: username,
+      });
+      if (insertError) throw insertError;
+      setSession(data.session);
+      setUser(data.user);
     }
   }
 

@@ -89,11 +89,17 @@ Read the relevant feeder before starting a feature. A separate earlier save with
 - Use `expo-camera` for QR scanning; `expo-barcode-scanner` is deprecated.
 - Expo Go cannot run Stripe, RevenueCat or AdMob. These need an EAS development build.
 - Confirm `signUp` creates a row in the public `users` table, or add a trigger on `auth.users`.
-- If Supabase email confirmation is on, sign-in fails until the email is confirmed. Turn it off during development.
+- If Supabase email confirmation is on, sign-in fails until the email is confirmed. Turn it off during development. (Currently off.)
+- Supabase Authentication must have the Email provider enabled, or sign-up shows "Email signups are disabled". (Currently on.)
+- `users` rows need `auth_id` (the login's ID) and `display_name`. `signUp()` sets both. If sign-up is ever changed, keep them.
+- `isLoading` in the auth store means "checking for a saved session at app start". Do not set it during sign-in or sign-up, or the sign-in screen is rebuilt and loses its form and error text.
+- Starting the app on this Windows PC, in PowerShell: use `npm.cmd start` (plain `npm` is blocked). Before it, set `$env:NODE_OPTIONS="--use-system-ca"` (fixes a certificate error) and `$env:REACT_NATIVE_PACKAGER_HOSTNAME="<PC Wi-Fi IP>"` (so the phone can find it; currently 192.168.50.180, check with `ipconfig`). These last only for that terminal tab. Expo CLI must be logged in (`npx expo login`).
+- The iPhone's Expo Go only supports the newest SDK, so the project must stay on it. Upgrade the project when Expo Go moves on.
+- Node.js is installed. If `node` is not found in a new session, restart the app.
 
 ## Current status
-- Done: Supabase project and database migration; project scaffold; auth screens and navigation written; git set up and first commit pushed to https://github.com/Dhouck01/Wheeln (branch main)
-- Not yet confirmed: sign up and sign in working end to end
-- Next: confirm auth, commit, then build the feed and check-in system
-- Missing: no `.env.example` yet (add one with placeholder values only)
+- Done: Supabase project and database migration; project scaffold; git set up (GitHub: https://github.com/Dhouck01/Wheeln, branch main); project upgraded to Expo SDK 58; auth confirmed on a phone (sign up creates the `users` row, sign in, wrong-password error, session survives closing the app, Sign Out on the Profile tab)
+- Next: build the feed and check-in system (build order step 2)
+- Missing: no `.env.example` yet (add one with placeholder values only); app icon, splash image and adaptive icon files in `assets/` do not exist yet (needed before store builds); `app.json` still has the old `splash` setting, which SDK 58 replaces with the expo-splash-screen plugin
+- Placeholders: Feed, Check In and Rankings tabs are placeholder screens; Profile only shows email and Sign Out
 (Update this section at the end of every session.)

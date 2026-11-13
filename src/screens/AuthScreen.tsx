@@ -15,7 +15,8 @@ import { useAuth } from '../hooks/useAuth';
 type Mode = 'signIn' | 'signUp';
 
 export function AuthScreen() {
-  const { signIn, signUp, isLoading } = useAuth();
+  const { signIn, signUp } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
   const [mode, setMode] = useState<Mode>('signIn');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -32,6 +33,7 @@ export function AuthScreen() {
       setError('Please enter a username.');
       return;
     }
+    setIsLoading(true);
     try {
       if (mode === 'signIn') {
         await signIn(email, password);
@@ -40,6 +42,8 @@ export function AuthScreen() {
       }
     } catch (e: any) {
       setError(e?.message ?? 'Something went wrong.');
+    } finally {
+      setIsLoading(false);
     }
   }
 
