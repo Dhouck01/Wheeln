@@ -55,6 +55,7 @@ export function FeedScreen() {
 
   return (
     <SafeAreaView style={styles.screen} edges={['top']}>
+      <Text style={styles.pageTitle}>Wheeln</Text>
       <View style={styles.toggle}>
         {TABS.map((tab) => {
           const active = tab.mode === mode;
@@ -118,6 +119,7 @@ export function FeedScreen() {
 
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: colors.background },
+  pageTitle: { color: colors.accent, fontSize: 28, fontWeight: '900', paddingHorizontal: 16, paddingTop: 8 },
   toggle: {
     flexDirection: 'row',
     backgroundColor: colors.card,

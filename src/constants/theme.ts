@@ -11,6 +11,7 @@ export const colors = {
   error: '#FF4D4D',
 } as const;
 
+export const TAB_BAR_HEIGHT = 60;
 export const FEED_PAGE_SIZE = 20;
 export const RANKINGS_MIN_CHECKINS = 3; // a place needs this many check-ins to be ranked
 export const RANKINGS_LIMIT = 50;

@@ -26,6 +26,10 @@ export function RankingsScreen() {
 
   return (
     <SafeAreaView style={styles.screen} edges={['top']}>
+      <Text style={styles.pageTitle}>Rankings</Text>
+      <Text style={styles.pageSubtitle}>
+        Places with {RANKINGS_MIN_CHECKINS}+ check-ins, ranked by the community
+      </Text>
       <View style={styles.toggle}>
         {TABS.map((tab) => {
           const active = tab.kind === kind;
@@ -83,6 +87,8 @@ export function RankingsScreen() {
 
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: colors.background },
+  pageTitle: { color: colors.text, fontSize: 28, fontWeight: '900', paddingHorizontal: 16, paddingTop: 8 },
+  pageSubtitle: { color: colors.textMuted, fontSize: 13, paddingHorizontal: 16, marginTop: 2 },
   toggle: {
     flexDirection: 'row',
     backgroundColor: colors.card,
