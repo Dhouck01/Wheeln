@@ -12,4 +12,6 @@ export const colors = {
 } as const;
 
 export const FEED_PAGE_SIZE = 20;
+export const RANKINGS_MIN_CHECKINS = 3; // a place needs this many check-ins to be ranked
+export const RANKINGS_LIMIT = 50;
 export const MAX_COMMENT_LENGTH = 300; // matches the database limit

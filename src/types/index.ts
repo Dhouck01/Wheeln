@@ -58,6 +58,21 @@ export interface Post {
   liked_by_me: boolean;
 }
 
+// A location as shown on the Rankings screen (columns of the `locations` table)
+export interface RankedLocation {
+  id: string;
+  name: string;
+  type: LocationType;
+  city: string | null;
+  state: string | null;
+  avg_rating: number;
+  avg_difficulty: number;
+  total_checkins: number;
+  cover_photo_url: string | null;
+}
+
+export type RankingKind = 'rating' | 'difficulty' | 'popularity';
+
 // A row of the `comments` table, joined with its user
 export interface Comment {
   id: string;
