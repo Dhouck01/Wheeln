@@ -15,4 +15,6 @@ export const TAB_BAR_HEIGHT = 60;
 export const FEED_PAGE_SIZE = 20;
 export const RANKINGS_MIN_CHECKINS = 3; // a place needs this many check-ins to be ranked
 export const RANKINGS_LIMIT = 50;
+export const CHECKIN_PHOTO_WIDTH = 1080; // check-in photos are shrunk to this width before upload
+export const MAX_POST_MESSAGE_LENGTH = 500;
 export const MAX_COMMENT_LENGTH = 300; // matches the database limit

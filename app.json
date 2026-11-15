@@ -22,6 +22,15 @@
       },
       "package": "com.wheeln.app"
     },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Wheeln needs your photos so you can attach one to a check-in.",
+          "cameraPermission": "Wheeln needs your camera so you can take a photo for a check-in."
+        }
+      ]
+    ],
     "web": {
       "favicon": "./assets/favicon.png"
     }

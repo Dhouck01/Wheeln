@@ -67,7 +67,8 @@ async function fetchPostsPage(
 }
 
 export function useFeed(profileId: string | undefined) {
-  const { posts, mode, setPosts, appendPosts, updatePost, setMode, clearFeed } = useFeedStore();
+  const { posts, mode, setPosts, appendPosts, updatePost, setMode, clearFeed, reloadCount } =
+    useFeedStore();
   const [isLoading, setIsLoading] = useState(false); // first load of a feed
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -103,12 +104,13 @@ export function useFeed(profileId: string | undefined) {
     [profileId, mode, setPosts]
   );
 
-  // Start over whenever the person or the Friends/Community toggle changes
+  // Start over whenever the person or the Friends/Community toggle changes,
+  // or when a new check-in asks for a reload
   useEffect(() => {
     clearFeed();
     setHasMore(true);
     loadFirstPage('initial');
-  }, [profileId, mode]);
+  }, [profileId, mode, reloadCount]);
 
   const loadMore = useCallback(async () => {
     if (!profileId || isLoading || isRefreshing || isLoadingMore || !hasMore) return;

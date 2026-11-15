@@ -9,6 +9,9 @@ interface FeedState {
   updatePost: (postId: string, changes: Partial<Post>) => void;
   setMode: (mode: FeedMode) => void;
   clearFeed: () => void;
+  // Goes up by one when something (like a new check-in) means the feed should reload
+  reloadCount: number;
+  requestReload: () => void;
 }
 
 export const useFeedStore = create<FeedState>()((set) => ({
@@ -27,4 +30,6 @@ export const useFeedStore = create<FeedState>()((set) => ({
     })),
   setMode: (mode) => set({ mode }),
   clearFeed: () => set({ posts: [] }),
+  reloadCount: 0,
+  requestReload: () => set((state) => ({ reloadCount: state.reloadCount + 1 })),
 }));
