@@ -1,9 +1,16 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import { useAuth } from '../hooks/useAuth';
 import { AuthScreen } from '../screens/AuthScreen';
+import { BadgesScreen } from '../screens/BadgesScreen';
 import { TabNavigator } from './TabNavigator';
+import { colors } from '../constants/theme';
+import { RootStackParamList } from '../types';
+
+// Screens that open on top of the tab bar (with a Back button) go in this stack
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export function AppNavigator() {
   const { session, isLoading } = useAuth();
@@ -18,7 +25,21 @@ export function AppNavigator() {
 
   return (
     <NavigationContainer>
-      {session ? <TabNavigator /> : <AuthScreen />}
+      {session ? (
+        <Stack.Navigator
+          screenOptions={{
+            headerStyle: { backgroundColor: colors.card },
+            headerTintColor: colors.text,
+            headerTitleStyle: { fontWeight: '800' },
+            contentStyle: { backgroundColor: colors.background },
+          }}
+        >
+          <Stack.Screen name="Tabs" component={TabNavigator} options={{ headerShown: false }} />
+          <Stack.Screen name="Badges" component={BadgesScreen} options={{ title: 'Badges' }} />
+        </Stack.Navigator>
+      ) : (
+        <AuthScreen />
+      )}
     </NavigationContainer>
   );
 }

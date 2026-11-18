@@ -84,3 +84,61 @@ export interface Comment {
 }
 
 export type FeedMode = 'community' | 'friends';
+
+// A row of the `badge_ladders` table
+export interface BadgeLadder {
+  id: string;
+  slug: string;
+  name: string;
+  sort_order: number;
+}
+
+// A row of the `badge_definitions` table (only the columns the app reads)
+export interface BadgeDefinition {
+  id: string;
+  slug: string;
+  name: string;
+  description: string;
+  tier: number | null; // step number on its ladder; null for one-off badges
+  threshold_value: number | null; // the number needed to earn it
+  ladder_id: string | null; // null for one-off badges like Early Adopter
+}
+
+// A row of the `user_badges` table
+export interface EarnedBadge {
+  badge_id: string;
+  earned_at: string;
+}
+
+// One step of a ladder, with the date it was earned (null = still locked)
+export interface LadderStep {
+  id: string;
+  name: string;
+  description: string;
+  tier: number;
+  threshold: number;
+  earnedAt: string | null;
+}
+
+// A ladder with the signed-in person's progress on it
+export interface LadderStatus {
+  ladder: BadgeLadder;
+  steps: LadderStep[]; // every step, lowest first
+  value: number; // the person's current number (visits, places, likes, ...)
+  current: LadderStep | null; // highest step earned, or null if not started
+  next: LadderStep | null; // the next step to earn, or null at the top
+}
+
+// A one-off badge that is not on a ladder
+export interface SpecialBadge {
+  id: string;
+  name: string;
+  description: string;
+  earnedAt: string;
+}
+
+// The screens that sit on top of the tabs
+export type RootStackParamList = {
+  Tabs: undefined;
+  Badges: undefined;
+};
